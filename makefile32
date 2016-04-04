@@ -1,0 +1,21 @@
+OBJS = main.o Accessor.o column_store.o error.o
+CC = g++
+DEBUG = -g
+LIBS = BF_32.a
+
+prog : $(OBJS)
+	$(CC) -o prog $(OBJS) $(LIBS)
+
+main.o : column_store.h Accessor.h BF.h error.h rec.h
+
+Accessor.o : Accessor.h rec.h BF.h error.h
+
+column_store.o : column_store.h Accessor.h BF.h rec.h error.h
+
+error.o : error.h BF.h
+
+
+.PHONY : clean
+clean :
+	-rm prog $(OBJS)
+
